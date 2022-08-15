@@ -1,0 +1,5 @@
+# Loom Playground Repository
+
+This repository contains a few selected samples to illustrate behavioral differences between Java Platform Threads and Virtual Threads.
+
+You need at least Java 19 to run these samples and you need Postgres if you want to run the Postgres-based samples.
