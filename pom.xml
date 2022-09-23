@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>19</java.version>
 		<tomcat.version>10.1.0-M17</tomcat.version>
+		<junit-jupiter.version>5.9.0</junit-jupiter.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -44,6 +45,27 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-core</artifactId>
+			<version>1.35</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-generator-annprocess</artifactId>
+			<version>1.35</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.mp911de.microbenchmark-runner</groupId>
+			<artifactId>microbenchmark-runner-junit5</artifactId>
+			<version>0.3.0.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 
@@ -54,6 +76,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<compilerArgs>--enable-preview</compilerArgs>
+					<source>18</source>
+					<target>18</target>
 				</configuration>
 			</plugin>
 
@@ -81,6 +105,11 @@
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
+		</repository>
+
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
 		</repository>
 	</repositories>
 
