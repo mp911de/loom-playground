@@ -25,8 +25,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * expect {@link Runtime#availableProcessors()} active threads but with an effective
  * concurrency of {@code 1}.
  * <p>
- * This is an indication that the lock on the code path should be
- * resolved into a Loom-friendly lock mechanism.
+ * This is an indication that the lock on the code path should be resolved into a
+ * Loom-friendly lock mechanism.
  */
 public class VirtualExternalSynchronized {
 

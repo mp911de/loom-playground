@@ -38,13 +38,15 @@ import org.openjdk.jmh.infra.Blackhole;
 @Warmup(iterations = 5, time = 2)
 @Measurement(iterations = 5, time = 2)
 @Threads(8)
-@Fork(value = 1, jvmArgs = {"--enable-preview", "-server", "-XX:+HeapDumpOnOutOfMemoryError", "-Xms1024m", "-Xmx1024m",
-		"-XX:MaxDirectMemorySize=1024m", "-noverify"})
+@Fork(value = 1,
+		jvmArgs = { "--enable-preview", "-server", "-XX:+HeapDumpOnOutOfMemoryError", "-Xms1024m", "-Xmx1024m",
+				"-XX:MaxDirectMemorySize=1024m", "-noverify" })
 @State(Scope.Benchmark)
 @Testable
 public class VirtualThreadsBenchmark {
 
 	ThreadFactory virtualThreadFactory;
+
 	ExecutorService executor;
 
 	@Setup
@@ -69,4 +71,5 @@ public class VirtualThreadsBenchmark {
 		virtualThreadFactory.newThread(() -> {
 		}).start();
 	}
+
 }

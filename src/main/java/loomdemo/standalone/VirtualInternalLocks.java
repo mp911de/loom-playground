@@ -67,8 +67,8 @@ public class VirtualInternalLocks {
 
 		while (waitUntil.isAfter(Instant.now())) {
 
-			System.out.println("Concurrency: %4s, Active Virtual Threads: %4s, heap: %,d kB, non-heap: %,d kB".formatted(concurrency,
-					activeThreads, heap.getUsed() / 1000, nonHeap.getUsed() / 1000));
+			System.out.println("Concurrency: %4s, Active Virtual Threads: %4s, heap: %,d kB, non-heap: %,d kB"
+					.formatted(concurrency, activeThreads, heap.getUsed() / 1000, nonHeap.getUsed() / 1000));
 			Thread.sleep(100);
 		}
 	}

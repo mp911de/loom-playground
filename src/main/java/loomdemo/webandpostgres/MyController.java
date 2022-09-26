@@ -34,6 +34,7 @@ public class MyController {
 	private static AtomicLong concurrency = new AtomicLong();
 
 	private final JdbcTemplate jdbcTemplate;
+
 	private final TransactionTemplate transactionTemplate;
 
 	public MyController(JdbcTemplate jdbcTemplate, TransactionTemplate transactionTemplate) {
@@ -46,7 +47,8 @@ public class MyController {
 
 		String concurrency = "" + MyController.concurrency.incrementAndGet();
 		try {
-			return "Concurrency: " + concurrency + ", Result: " + jdbcTemplate.queryForMap("SELECT clock_timestamp(), pg_sleep(" + amount + ")");
+			return "Concurrency: " + concurrency + ", Result: "
+					+ jdbcTemplate.queryForMap("SELECT clock_timestamp(), pg_sleep(" + amount + ")");
 		}
 		finally {
 			MyController.concurrency.decrementAndGet();
@@ -57,4 +59,5 @@ public class MyController {
 	public String extendedSleep(@PathVariable long amount) {
 		return transactionTemplate.execute(status -> sleep(amount));
 	}
+
 }

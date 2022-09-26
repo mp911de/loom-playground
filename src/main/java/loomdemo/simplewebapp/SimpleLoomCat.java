@@ -46,4 +46,5 @@ public class SimpleLoomCat {
 			protocolHandler.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
 		};
 	}
+
 }

@@ -36,12 +36,15 @@ import org.openjdk.jmh.infra.Blackhole;
 
 /**
  * Benchmark running {@link Runnable}s using {@link ThreadPoolExecutor}.
+ *
  * @author Mark Paluch
  */
 @Warmup(iterations = 5, time = 2)
 @Measurement(iterations = 5, time = 2)
 @Threads(8)
-@Fork(value = 1, jvmArgs = {"--enable-preview", "-server", "-XX:+HeapDumpOnOutOfMemoryError", "-Xms1024m", "-Xmx1024m", "-XX:MaxDirectMemorySize=1024m", "-noverify"})
+@Fork(value = 1,
+		jvmArgs = { "--enable-preview", "-server", "-XX:+HeapDumpOnOutOfMemoryError", "-Xms1024m", "-Xmx1024m",
+				"-XX:MaxDirectMemorySize=1024m", "-noverify" })
 @State(Scope.Benchmark)
 @Testable
 public class ThreadPoolExecutorBenchmark {
@@ -50,9 +53,8 @@ public class ThreadPoolExecutorBenchmark {
 
 	@Setup
 	public void setUp() {
-		executor = new ThreadPoolExecutor(Runtime.getRuntime()
-				.availableProcessors(), Runtime.getRuntime()
-				.availableProcessors(), 1, TimeUnit.MINUTES, new ArrayBlockingQueue<>(100));
+		executor = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors(),
+				Runtime.getRuntime().availableProcessors(), 1, TimeUnit.MINUTES, new ArrayBlockingQueue<>(100));
 	}
 
 	@TearDown
