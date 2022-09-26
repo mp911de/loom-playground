@@ -61,12 +61,14 @@ public class VirtualThreadsBenchmark {
 	}
 
 	@Benchmark
+	@Testable
 	public void runAndAwait(Blackhole sink) throws ExecutionException, InterruptedException {
 		sink.consume(executor.submit(() -> {
 		}).get());
 	}
 
 	@Benchmark
+	@Testable
 	public void createVirtualThreads() {
 		virtualThreadFactory.newThread(() -> {
 		}).start();

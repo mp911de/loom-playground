@@ -61,12 +61,14 @@ public class PlatformThreadsBenchmark {
 	}
 
 	@Benchmark
+	@Testable
 	public void runAndAwait(Blackhole sink) throws ExecutionException, InterruptedException {
 		sink.consume(executor.submit(() -> {
 		}).get());
 	}
 
 	@Benchmark
+	@Testable
 	public void createPlatformThreads() {
 		platformThreadFactory.newThread(() -> {
 		}).start();
