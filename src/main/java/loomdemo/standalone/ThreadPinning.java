@@ -24,6 +24,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * use own (inner) mutex objects via {@code synchronized}. Due to kernel thread pinning we
  * expect a concurrency of {@link Runtime#availableProcessors()}.
  * <p>
+ * Run this example with {@code -Djdk.tracePinnedThreads=full} to obtain thread pinning details.
+ * <p>
  * This is an indication that the lock on the code path should be resolved into a
  * Loom-friendly lock mechanism.
  */

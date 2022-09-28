@@ -18,7 +18,6 @@ package benchmarks;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -35,16 +34,18 @@ import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.infra.Blackhole;
 
 /**
- * Benchmark running {@link Runnable}s using {@link ThreadPoolExecutor}.
+ * Benchmarks to measure Platform Threads:
  *
- * @author Mark Paluch
+ * <ul>
+ *     <li>Running and completing a {@code Runnable} using a Thread Pool (recommended usage, {@link #runAndAwait(Blackhole) Runnables completed per second})</li>
+ * </ul>
  */
 @Warmup(iterations = 5, time = 2)
 @Measurement(iterations = 5, time = 2)
 @Threads(8)
 @Fork(value = 1,
-		jvmArgs = { "--enable-preview", "-server", "-XX:+HeapDumpOnOutOfMemoryError", "-Xms1024m", "-Xmx1024m",
-				"-XX:MaxDirectMemorySize=1024m", "-noverify" })
+		jvmArgs = {"--enable-preview", "-server", "-XX:+HeapDumpOnOutOfMemoryError", "-Xms1024m", "-Xmx1024m",
+				"-XX:MaxDirectMemorySize=1024m", "-noverify"})
 @State(Scope.Benchmark)
 @Testable
 public class ThreadPoolExecutorBenchmark {
@@ -54,7 +55,8 @@ public class ThreadPoolExecutorBenchmark {
 	@Setup
 	public void setUp() {
 		executor = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors(),
-				Runtime.getRuntime().availableProcessors(), 1, TimeUnit.MINUTES, new ArrayBlockingQueue<>(100));
+				Runtime.getRuntime()
+						.availableProcessors(), 1, TimeUnit.MINUTES, new ArrayBlockingQueue<>(100));
 	}
 
 	@TearDown
@@ -66,6 +68,7 @@ public class ThreadPoolExecutorBenchmark {
 	@Testable
 	public void runAndAwait(Blackhole sink) throws ExecutionException, InterruptedException {
 		sink.consume(executor.submit(() -> {
+			sink.consume(this);
 		}).get());
 	}
 

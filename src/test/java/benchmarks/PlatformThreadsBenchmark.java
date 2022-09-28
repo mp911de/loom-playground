@@ -33,14 +33,19 @@ import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.infra.Blackhole;
 
 /**
- * @author Mark Paluch
+ * Benchmarks to measure Platform Threads:
+ *
+ * <ul>
+ *     <li>Running and completing a {@code Runnable} using a Thread per Runnable. Note that this is an anti-pattern as Platform threads should be pooled. ({@link #runAndAwait(Blackhole) Runnables completed per second})</li>
+ *     <li>Creation of Platform threads ({@link #createPlatformThreads() new threads per second})</li>
+ * </ul>
  */
 @Warmup(iterations = 5, time = 2)
 @Measurement(iterations = 5, time = 2)
 @Threads(8)
 @Fork(value = 1,
-		jvmArgs = { "--enable-preview", "-server", "-XX:+HeapDumpOnOutOfMemoryError", "-Xms1024m", "-Xmx1024m",
-				"-XX:MaxDirectMemorySize=1024m", "-noverify" })
+		jvmArgs = {"--enable-preview", "-server", "-XX:+HeapDumpOnOutOfMemoryError", "-Xms1024m", "-Xmx1024m",
+				"-XX:MaxDirectMemorySize=1024m", "-noverify"})
 @State(Scope.Benchmark)
 @Testable
 public class PlatformThreadsBenchmark {
@@ -64,6 +69,7 @@ public class PlatformThreadsBenchmark {
 	@Testable
 	public void runAndAwait(Blackhole sink) throws ExecutionException, InterruptedException {
 		sink.consume(executor.submit(() -> {
+			sink.consume(this);
 		}).get());
 	}
 

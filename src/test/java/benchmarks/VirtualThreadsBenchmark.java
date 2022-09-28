@@ -33,7 +33,12 @@ import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.infra.Blackhole;
 
 /**
- * @author Mark Paluch
+ * Benchmarks to measure Virtual Threads:
+ *
+ * <ul>
+ *     <li>Running and completing a {@code Runnable} using a Virtual Thread per Runnable (recommended usage, {@link #runAndAwait(Blackhole) Runnables completed per second})</li>
+ *     <li>Creation of Virtual threads ({@link #createVirtualThreads() new threads per second})</li>
+ * </ul>
  */
 @Warmup(iterations = 5, time = 2)
 @Measurement(iterations = 5, time = 2)
@@ -64,6 +69,7 @@ public class VirtualThreadsBenchmark {
 	@Testable
 	public void runAndAwait(Blackhole sink) throws ExecutionException, InterruptedException {
 		sink.consume(executor.submit(() -> {
+			sink.consume(this);
 		}).get());
 	}
 

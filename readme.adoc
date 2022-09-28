@@ -2,7 +2,31 @@
 
 This repository contains a few selected samples to illustrate behavioral differences between Java Platform Threads and Virtual Threads.
 
-You need at least Java 19 to run these samples and you need Postgres if you want to run the Postgres-based samples. You can use https://docs.docker.com/compose/compose-file/[docker compose] to run the database if you like:
+You need at least Java 19 to run these samples and you need Postgres if you want to run the Postgres-based samples.
+
+== Examples
+
+This repository contains three types of samples:
+
+1. link:src/main/java/loomdemo/standalone[Behavioral examples]:
++
+These illustrate differences in concurrency behavior using `synchronized` vs ``Lock``s.
+See link:src/main/java/loomdemo/standalone[`loomdemo.standalone`] packages for the individual runnable classes.
+2. link:src/main/java/loomdemo/springboot[Spring Boot examples]
++
+The Spring Boot examples reside in link:src/main/java/loomdemo/springboot[`loomdemo.springboot`] and its subpackages.
+The examples demonstrate how to configure Tomcat and Spring's `AsyncTaskExecutor` to use Virtual threads.
+3. link:src/test/java/benchmarks[JMH Benchmarks]
++
+Benchmarks measure Virtual vs. Platform thread performance, specifically the throughput of creating and running a `Runnable` on a Virtual vs. Platform thread.
+See `VirtualThreadsBenchmark.runAndAwait` and ThreadPoolExecutorBenchmark.runAndAwait` benchmark.
+The difference in the score is an approximation for the Virtual threads overhead in comparison to pooled Platform threads.
++
+Benchmarks are located in the link:src/test/java/benchmarks[`test`] sources and use https://github.com/mp911de/microbenchmark-runner[Microbenchmark Runner] to run benchmarks through Surefire/the JUnit 5 engine.
+
+== Container setup
+
+You can use https://docs.docker.com/compose/compose-file/[docker compose] to run the database if you like:
 
 ```
 $ docker-compose up
@@ -13,3 +37,23 @@ postgres_1  | 2022-09-27 11:54:59.060 UTC [1] LOG:  database system is ready to 
 ```
 
 There are https://containers.dev/[devcontainers] configuration files provided so you can also use those to install the JDK. Install the https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers[Remote Containers] extension in https://code.visualstudio.com/[VSCode], open the command palette and execute `>Remote-Containers: Reopen in container`, or open the project in https://github.com/codespaces[Codespaces].
+
+== Building from Source
+
+If you want to try build this project, then use the bundled the https://github.com/takari/maven-wrapper[maven wrapper].
+You also need JDK 19 or above.
+
+[source,bash]
+----
+ $ ./mvnw clean install
+----
+
+If you want to build with the regular `mvn` command, you will need https://maven.apache.org/run-maven/index.html[Maven v3.5.0 or above].
+
+== History
+
+For an earlier iteration on Spring Boot and Virtual Threads see the https://github.com/mp911de/spring-boot-virtual-threads-experiment repository that contains a Spring Boot example only.
+
+== License
+
+This project is Open Source software released under the https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].
