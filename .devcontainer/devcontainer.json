@@ -1,0 +1,29 @@
+{
+	"name": "loom-playground",
+	"dockerFile": "Dockerfile",
+	"runArgs": [
+		"--cap-add=SYS_PTRACE",
+		"--security-opt",
+		"seccomp=unconfined",
+		"--mount",
+		"type=bind,source=${env:HOME}/.m2,target=/home/vscode/.m2"
+	],
+	"initializeCommand": "mkdir -p ${env:HOME}/.m2",
+	"postCreateCommand": "sudo chown vscode:vscode /home/vscode/.m2",
+	"remoteUser": "vscode",
+	"features": {
+		"docker-in-docker": "latest"
+	},
+	"extensions": [
+		"vscjava.vscode-java-pack",
+		"redhat.vscode-xml",
+		"Pivotal.vscode-boot-dev-pack",
+		"mhutchie.git-graph",
+		// N.B. might need to install the pre-release version manually
+		"redhat.java"
+	],
+	"settings": {
+		"java.server.launchMode": "Standard",
+		"java.jdt.ls.java.home": "/usr/local/sdkman/candidates/java/current"
+	}
+}

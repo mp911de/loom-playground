@@ -63,6 +63,7 @@ public class ThreadPoolExecutorBenchmark {
 	}
 
 	@Benchmark
+	@Testable
 	public void runAndAwait(Blackhole sink) throws ExecutionException, InterruptedException {
 		sink.consume(executor.submit(() -> {
 		}).get());

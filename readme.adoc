@@ -2,4 +2,14 @@
 
 This repository contains a few selected samples to illustrate behavioral differences between Java Platform Threads and Virtual Threads.
 
-You need at least Java 19 to run these samples and you need Postgres if you want to run the Postgres-based samples.
+You need at least Java 19 to run these samples and you need Postgres if you want to run the Postgres-based samples. You can use https://docs.docker.com/compose/compose-file/[docker compose] to run the database if you like:
+
+```
+$ docker-compose up
+...
+postgres_1  | 2022-09-27 11:54:59.006 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+postgres_1  | 2022-09-27 11:54:59.042 UTC [59] LOG:  database system was shut down at 2022-09-27 11:54:58 UTC
+postgres_1  | 2022-09-27 11:54:59.060 UTC [1] LOG:  database system is ready to accept connections
+```
+
+There are https://containers.dev/[devcontainers] configuration files provided so you can also use those to install the JDK. Install the https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers[Remote Containers] extension in https://code.visualstudio.com/[VSCode], open the command palette and execute `>Remote-Containers: Reopen in container`, or open the project in https://github.com/codespaces[Codespaces].
