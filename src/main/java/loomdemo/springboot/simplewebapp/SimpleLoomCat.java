@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package loomdemo.webandpostgres;
+package loomdemo.springboot.simplewebapp;
 
 import java.util.concurrent.Executors;
 
@@ -22,27 +22,20 @@ import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.web.embedded.tomcat.TomcatProtocolHandlerCustomizer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.task.AsyncTaskExecutor;
-import org.springframework.core.task.support.TaskExecutorAdapter;
 
 /**
  * @author Mark Paluch
  */
-@SpringBootApplication
-public class LoomPostgresWebapp {
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+public class SimpleLoomCat {
 
 	Log log = LogFactory.getLog(getClass());
 
 	public static void main(String[] args) {
-		SpringApplication.run(LoomPostgresWebapp.class, args);
-	}
-
-	@Bean(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME)
-	AsyncTaskExecutor asyncTaskExecutor() {
-		return new TaskExecutorAdapter(Executors.newVirtualThreadPerTaskExecutor());
+		SpringApplication.run(SimpleLoomCat.class, args);
 	}
 
 	@Bean
