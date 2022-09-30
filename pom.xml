@@ -18,6 +18,7 @@
 		<java.version>19</java.version>
 		<tomcat.version>10.1.0-M17</tomcat.version>
 		<junit-jupiter.version>5.9.0</junit-jupiter.version>
+		<jmh.version>1.35</jmh.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -49,14 +50,14 @@
 		<dependency>
 			<groupId>org.openjdk.jmh</groupId>
 			<artifactId>jmh-core</artifactId>
-			<version>1.35</version>
+			<version>${jmh.version}</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openjdk.jmh</groupId>
 			<artifactId>jmh-generator-annprocess</artifactId>
-			<version>1.35</version>
+			<version>${jmh.version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -82,8 +83,15 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<compilerArgs>--enable-preview</compilerArgs>
-					<source>19</source>
-					<target>19</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.openjdk.jmh</groupId>
+							<artifactId>jmh-generator-annprocess</artifactId>
+							<version>${jmh.version}</version>
+						</path>
+					</annotationProcessorPaths>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 			<plugin>
